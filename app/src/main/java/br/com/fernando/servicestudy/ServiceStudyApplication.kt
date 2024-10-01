@@ -2,6 +2,7 @@ package br.com.fernando.servicestudy
 
 import android.app.Application
 import android.util.Log
+import br.com.fernando.domain.di.domainModule
 import br.com.fernando.servicestudy.di.appModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
@@ -11,12 +12,10 @@ class ServiceStudyApplication : Application() {
     override fun onCreate() {
         super.onCreate()
 
-        Log.d("ServiceStudyApplication", "onCreate")
-
         startKoin {
             androidContext(this@ServiceStudyApplication)
             androidLogger()
-            modules(appModule)
+            modules(appModule + domainModule)
         }
     }
 }
