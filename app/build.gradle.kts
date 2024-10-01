@@ -41,8 +41,19 @@ dependencies {
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
-    implementation(libs.koin.android)
     implementation(libs.androidx.activity)
+
+    // koin
+    implementation(libs.koin.android)
+
+    // workmanager
+    implementation(libs.workmanager.runtime)
+    implementation(libs.workmanager.ktx)
+
+    // gson
+    implementation(libs.gson)
+
+    // tests
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
