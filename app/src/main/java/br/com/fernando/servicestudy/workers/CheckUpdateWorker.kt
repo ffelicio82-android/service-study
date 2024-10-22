@@ -4,8 +4,6 @@ import android.content.Context
 import android.util.Log
 import androidx.work.CoroutineWorker
 import androidx.work.Data
-import androidx.work.OneTimeWorkRequestBuilder
-import androidx.work.WorkManager
 import androidx.work.WorkerParameters
 import br.com.fernando.domain.GetUrlsFromCloudFrontUseCase
 import br.com.fernando.domain.entities.MyData
@@ -13,9 +11,9 @@ import br.com.fernando.servicestudy.workers.schedulers.QueueScheduler
 import com.google.gson.Gson
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import java.util.Date
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
+import java.util.Date
 
 class CheckUpdateWorker(
     appContext: Context,

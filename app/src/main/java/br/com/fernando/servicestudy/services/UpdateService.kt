@@ -8,6 +8,13 @@ import android.os.Build
 import android.os.IBinder
 import android.util.Log
 import androidx.core.app.NotificationCompat
+import androidx.work.ExistingPeriodicWorkPolicy
+import androidx.work.OneTimeWorkRequestBuilder
+import androidx.work.PeriodicWorkRequestBuilder
+import androidx.work.WorkManager
+import br.com.fernando.servicestudy.workers.CheckUpdateWorker
+import br.com.fernando.servicestudy.workers.FetchInstalledAppsWorker
+import br.com.fernando.servicestudy.workers.schedulers.CheckUpdateScheduler
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -15,6 +22,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
+import java.util.concurrent.TimeUnit
 
 class UpdateService : Service() {
     private val notificationManager: NotificationManager by inject()
@@ -27,6 +35,12 @@ class UpdateService : Service() {
         serviceScope.launch {
             while (isActive) {
                 Log.d(TAG, "serviceScope-fernando: Service is running")
+
+                val fetchInstalledAppsWorker = OneTimeWorkRequestBuilder<FetchInstalledAppsWorker>()
+                    .build()
+
+                WorkManager.getInstance(applicationContext).enqueue(fetchInstalledAppsWorker)
+
                 delay(CHECK_INTERVAL)
             }
         }
@@ -47,10 +61,8 @@ class UpdateService : Service() {
             val channel = NotificationChannel(
                 CHANNEL_ID,
                 "Notification",
-                NotificationManager.IMPORTANCE_LOW
-            ).apply {
-                setShowBadge(false)
-            }
+                NotificationManager.IMPORTANCE_NONE
+            )
             notificationManager.createNotificationChannel(channel)
         }
 
