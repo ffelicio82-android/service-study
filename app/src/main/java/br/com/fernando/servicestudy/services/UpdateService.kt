@@ -15,6 +15,7 @@ import androidx.work.WorkManager
 import br.com.fernando.servicestudy.workers.CheckUpdateWorker
 import br.com.fernando.servicestudy.workers.FetchInstalledAppsWorker
 import br.com.fernando.servicestudy.workers.schedulers.CheckUpdateScheduler
+import br.com.fernando.servicestudy.workers.schedulers.QueueScheduler
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -22,7 +23,6 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
-import java.util.concurrent.TimeUnit
 
 class UpdateService : Service() {
     private val notificationManager: NotificationManager by inject()
@@ -36,10 +36,7 @@ class UpdateService : Service() {
             while (isActive) {
                 Log.d(TAG, "serviceScope-fernando: Service is running")
 
-                val fetchInstalledAppsWorker = OneTimeWorkRequestBuilder<FetchInstalledAppsWorker>()
-                    .build()
-
-                WorkManager.getInstance(applicationContext).enqueue(fetchInstalledAppsWorker)
+                QueueScheduler.schedule(applicationContext)
 
                 delay(CHECK_INTERVAL)
             }

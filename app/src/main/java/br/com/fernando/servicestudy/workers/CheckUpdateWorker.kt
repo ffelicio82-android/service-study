@@ -7,7 +7,6 @@ import androidx.work.Data
 import androidx.work.WorkerParameters
 import br.com.fernando.domain.GetUrlsFromCloudFrontUseCase
 import br.com.fernando.domain.entities.MyData
-import br.com.fernando.servicestudy.workers.schedulers.QueueScheduler
 import com.google.gson.Gson
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -31,7 +30,7 @@ class CheckUpdateWorker(
                 val workerData : Data = Data.Builder().putString("url-info", data).build()
 
                 // schedule other workers
-                QueueScheduler.schedule(context = applicationContext, data = workerData)
+//                QueueScheduler.schedule(context = applicationContext, data = workerData)
 
                 Result.success()
             } catch (e: Exception) {
