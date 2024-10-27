@@ -50,7 +50,6 @@ class FetchManufacturerWorker(
     }
 
     private fun getImei(): String {
-        val telephonyManager = context.getSystemService(Context.TELEPHONY_SERVICE) as TelephonyManager
         return try {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
                 telephonyManager.imei ?: "Unknown"
@@ -63,7 +62,6 @@ class FetchManufacturerWorker(
     }
 
     private fun getCarrier(): String {
-        val telephonyManager = context.getSystemService(Context.TELEPHONY_SERVICE) as TelephonyManager
         return telephonyManager.networkOperatorName ?: "Unknown"
     }
 
