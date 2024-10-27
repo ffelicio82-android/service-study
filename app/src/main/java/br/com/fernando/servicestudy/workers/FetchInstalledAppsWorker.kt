@@ -11,7 +11,6 @@ import androidx.work.Worker
 import androidx.work.WorkerParameters
 import br.com.fernando.domain.entities.AppInfo
 import br.com.fernando.servicestudy.utils.GsonHelper
-import com.google.gson.Gson
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 import java.util.Date
