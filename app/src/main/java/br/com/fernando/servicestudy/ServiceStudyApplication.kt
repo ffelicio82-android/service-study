@@ -3,6 +3,7 @@ package br.com.fernando.servicestudy
 import android.app.Application
 import br.com.fernando.domain.di.domainModule
 import br.com.fernando.servicestudy.di.appModule
+import br.com.fernando.servicestudy.di.workerModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
@@ -14,7 +15,7 @@ class ServiceStudyApplication : Application() {
         startKoin {
             androidContext(this@ServiceStudyApplication)
             androidLogger()
-            modules(appModule + domainModule)
+            modules(appModule + workerModule + domainModule)
         }
     }
 }

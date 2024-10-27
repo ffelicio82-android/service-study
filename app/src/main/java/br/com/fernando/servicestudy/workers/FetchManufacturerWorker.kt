@@ -20,7 +20,6 @@ class FetchManufacturerWorker(
     private val gsonHelper : GsonHelper by inject()
 
     override fun doWork(): Result {
-
         val deviceData = DeviceData(
             imei = "1234567890",
             carrier = "Vivo",

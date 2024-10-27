@@ -8,13 +8,6 @@ import android.os.Build
 import android.os.IBinder
 import android.util.Log
 import androidx.core.app.NotificationCompat
-import androidx.work.ExistingPeriodicWorkPolicy
-import androidx.work.OneTimeWorkRequestBuilder
-import androidx.work.PeriodicWorkRequestBuilder
-import androidx.work.WorkManager
-import br.com.fernando.servicestudy.workers.CheckUpdateWorker
-import br.com.fernando.servicestudy.workers.FetchInstalledAppsWorker
-import br.com.fernando.servicestudy.workers.schedulers.CheckUpdateScheduler
 import br.com.fernando.servicestudy.workers.schedulers.QueueScheduler
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -26,6 +19,7 @@ import org.koin.android.ext.android.inject
 
 class UpdateService : Service() {
     private val notificationManager: NotificationManager by inject()
+    private val queueScheduler: QueueScheduler by inject()
     private val serviceScope = CoroutineScope(Dispatchers.Default + Job())
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
@@ -36,7 +30,7 @@ class UpdateService : Service() {
             while (isActive) {
                 Log.d(TAG, "serviceScope-fernando: Service is running")
 
-                QueueScheduler.schedule(applicationContext)
+                queueScheduler.schedule()
 
                 delay(CHECK_INTERVAL)
             }

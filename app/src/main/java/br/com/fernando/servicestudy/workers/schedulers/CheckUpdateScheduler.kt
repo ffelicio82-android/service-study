@@ -9,7 +9,6 @@ import androidx.work.WorkManager
 import br.com.fernando.servicestudy.workers.CheckUpdateWorker
 import java.util.concurrent.TimeUnit
 
-
 object CheckUpdateScheduler {
     private const val TAG : String = "check_update_scheduler_Fernando"
 
